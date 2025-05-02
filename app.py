@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
@@ -26,4 +27,5 @@ def handle_message(event):
         TextSendMessage(text='你說的是：「' + event.message.text + '」'))
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get('PORT', 5000))  # Render 會自動提供 PORT 環境變數
+    app.run(host='0.0.0.0', port=port)
